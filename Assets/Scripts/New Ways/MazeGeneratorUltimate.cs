@@ -84,7 +84,7 @@ public class MazeGeneratorUltimate : MonoBehaviour
 
             // find unvisited neighbors of current cell
             List<Vector2Int> unvisitedNeighbors = GetUnvisitedNeighbors(currentCell);
-
+            
             if (unvisitedNeighbors.Count > 0)
             {
                 // choose a random unvisited neighbor
