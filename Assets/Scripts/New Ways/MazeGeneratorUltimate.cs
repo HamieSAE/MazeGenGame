@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class MazeGeneratorUltimate : MonoBehaviour
 {
     public GameObject wallPrefab; // reference to the cube wall prefab
-    public int mazeSize = 15; // size of the maze
+    public int mazeSize; // size of the maze
     public float wallLength = 1.0f; // length of each wall
     public float wallHeight = 2.0f; // height of each wall
     public float pathWidth = 1.0f; // width of the paths
@@ -21,7 +21,7 @@ public class MazeGeneratorUltimate : MonoBehaviour
     {
         // initialize private variables
         visited = new bool[mazeSize, mazeSize];
-        walls = new GameObject[mazeSize + 1, mazeSize + 1];
+        walls = new GameObject[mazeSize, mazeSize];
         mazeOffset = new Vector3(-(mazeSize - 1) * wallLength / 2, 0, -(mazeSize - 1) * wallLength / 2);
         wallOffset = new Vector3(wallLength / 2, wallHeight / 2, wallLength / 2);
 
@@ -34,9 +34,9 @@ public class MazeGeneratorUltimate : MonoBehaviour
     private IEnumerator<object> SpawnWalls()
     {
         // loop through rows and columns to spawn walls
-        for (int i = 0; i <= mazeSize; i++)
+        for (int i = 0; i < mazeSize; i++)
         {
-            for (int j = 0; j <= mazeSize; j++)
+            for (int j = 0; j < mazeSize; j++)
             {
                 // instantiate a new wall prefab at the current position
                 Vector3 wallPosition = new Vector3(i * wallLength, 0, j * wallLength) + mazeOffset;
@@ -66,8 +66,8 @@ public class MazeGeneratorUltimate : MonoBehaviour
         }
 
         // choose a random starting cell
-        int startX = Random.Range(0, mazeSize);
-        int startY = Random.Range(0, mazeSize);
+        int startX = Random.Range(0, 6);//mazeSize
+        int startY = Random.Range(0, 6);//mazeSize
 
         // mark starting cell as visited
         visited[startX, startY] = true;
@@ -105,8 +105,6 @@ public class MazeGeneratorUltimate : MonoBehaviour
                 cellStack.Pop();
             }
         }
-        // remove wall between current cell and neighbor cell
-        //RemoveWall(currentCell, nextCell);
     }
     private List<Vector2Int> GetUnvisitedNeighbors(Vector2Int cell)
     {
@@ -135,15 +133,15 @@ public class MazeGeneratorUltimate : MonoBehaviour
         {
             unvisitedNeighbors.Add(new Vector2Int(cell.x, cell.y - 1));
         }
-
         return unvisitedNeighbors;
     }
 
     private void RemoveWall(Vector2Int currentCell, Vector2Int nextCell)
     {
         // find the position of the wall to remove
-        int wallX = currentCell.x + nextCell.x + 1;
-        int wallY = currentCell.y + nextCell.y + 1;
+        int wallX = currentCell.x + nextCell.x;
+        int wallY = currentCell.y + nextCell.y;
+        Debug.Log("Wallx is" + wallX + "WallY is " + wallY);
 
         // remove the wall
         GameObject wallToRemove = walls[wallX, wallY];

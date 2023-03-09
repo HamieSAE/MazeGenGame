@@ -279,12 +279,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallPrefab: {fileID: 3653641074324460111, guid: 486d9c303518d85419d3ff85c78e1640, type: 3}
-  mazeSize: 15
+  mazeSize: 6
   wallLength: 1
-  wallHeight: 2
-  pathWidth: 1
+  wallHeight: 1
+  pathWidth: 6
   pathHeight: 0
-  spawnDelay: 0.01
+  spawnDelay: 0
 --- !u!114 &1570283112
 MonoBehaviour:
   m_ObjectHideFlags: 0
